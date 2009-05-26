@@ -14,10 +14,10 @@ class Plado:
         exp = '^(\*+)\s*(.*)$'
         starlist = [re.match(exp, l).groups() for l in text.split('\n')]
         numlist = map(lambda a: (len(a[0]),a[1]), starlist)
-        clade = [numlist.pop(0)[1]]
+        clade = []
         for depth, name in numlist:
-            self._appendToDepth(clade, depth-2, [name])
-        return clade
+            self._appendToDepth(clade, depth-1, [name])
+        return clade[0]
     def _appendToDepth(self, lst, depth, item):
         if depth == 0:
             lst.append(item)
