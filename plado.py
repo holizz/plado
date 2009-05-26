@@ -3,7 +3,10 @@ import re
 
 class Plado:
     def __init__(self, input):
-        self.clade = self._parseString(input)
+        if isinstance(input,list):
+            self.clade = input
+        elif isinstance(input,str):
+            self.clade = self._parseString(input)
     def __str__(self):
         s = str(self.clade)
         return s
