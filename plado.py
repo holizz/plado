@@ -10,11 +10,9 @@ class Plado:
         elif isinstance(input,str):
             self.clade = self._parseString(input)
     def __str__(self):
-        s = ''
-        s += ' '*len(self.clade[0]) + '┌' + self.clade[1][0] + '\n'
+        s = self.clade[0] + '┬' + self.clade[1][0] + '\n'
         for i in self.clade[2:-1]:
             s += ' '*len(self.clade[0]) + '├' + i[0] + '\n'
-        s += self.clade[0] + '┤\n'
         s += ' '*len(self.clade[0]) + '└' + self.clade[-1][0]
         return s
     def _parseString(self, text):

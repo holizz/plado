@@ -40,14 +40,12 @@ class TestInput(unittest.TestCase):
 class TestBasicOutput(unittest.TestCase):
     def runTest(self):
         abcl = ['A', ['B'], ['C']]
-        abcs = ''' ┌B
-A┤
+        abcs = '''A┬B
  └C'''
         self.assertEqual(str(plado.Plado(abcl)), abcs)
         abcdl = ['A', ['B'], ['C'], ['D']]
-        abcds = ''' ┌B
+        abcds = '''A┬B
  ├C
-A┤
  └D'''
         self.assertEqual(str(plado.Plado(abcdl)), abcds)
 
