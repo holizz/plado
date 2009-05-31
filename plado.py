@@ -13,7 +13,9 @@ class Plado:
         if not cl:
             cl = self.clade
         s = cl[0]
-        if len(cl) > 1:
+        if len(cl) == 2:
+            s += '─' + cl[1][0]
+        elif len(cl) > 2:
             s += '┬' + cl[1][0] + '\n'
             for i in cl[2:-1]:
                 s += ' '*offset + ' '*len(cl[0]) + '├' + self.__str__(i) + '\n'
