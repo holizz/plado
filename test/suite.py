@@ -48,6 +48,12 @@ class TestBasicOutput(unittest.TestCase):
  ├C
  └D'''
         self.assertEqual(str(plado.Plado(abcdl)), abcds)
+        abcdefl = ['A', ['B'], ['C'], ['D', 'E', 'F']]
+        abcdefs = '''A┬B
+ ├C
+ └D┬E
+   └F'''
+        self.assertEqual(str(plado.Plado(abcdefl)), abcdefs)
 
 if __name__ == '__main__':
     unittest.main()

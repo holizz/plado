@@ -9,11 +9,15 @@ class Plado:
             self.clade = input
         elif isinstance(input,str):
             self.clade = self._parseString(input)
-    def __str__(self):
-        s = self.clade[0] + '┬' + self.clade[1][0] + '\n'
-        for i in self.clade[2:-1]:
-            s += ' '*len(self.clade[0]) + '├' + i[0] + '\n'
-        s += ' '*len(self.clade[0]) + '└' + self.clade[-1][0]
+    def __str__(self, cl=None, offset=0):
+        if not cl:
+            cl = self.clade
+        s = cl[0]
+        if len(cl) > 1:
+            s += '┬' + cl[1][0] + '\n'
+            for i in cl[2:-1]:
+                s += ' '*offset + ' '*len(cl[0]) + '├' + self.__str__(i) + '\n'
+            s += ' '*offset + ' '*len(cl[0]) + '└' + self.__str__(cl[-1],offset+len(cl[0])+1)
         return s
     def _parseString(self, text):
         exp = '^(\*+)\s*(.*)$'
