@@ -39,26 +39,26 @@ class TestInput(unittest.TestCase):
 
 class TestBasicOutput(unittest.TestCase):
     def runTest(self):
-        abcl = ['A', ['B'], ['C']]
-        abcs = '''A┬B
+        l = ['A', ['B'], ['C']]
+        s = '''A┬B
  └C'''
-        self.assertEqual(str(plado.Plado(abcl)), abcs)
-        abcdl = ['A', ['B'], ['C'], ['D']]
-        abcds = '''A┬B
+        self.assertEqual(str(plado.Plado(l)), s)
+        l = ['A', ['B'], ['C'], ['D']]
+        s = '''A┬B
  ├C
  └D'''
-        self.assertEqual(str(plado.Plado(abcdl)), abcds)
-        abcdefl = ['A', ['B'], ['C'], ['D', 'E', 'F']]
-        abcdefs = '''A┬B
+        self.assertEqual(str(plado.Plado(l)), s)
+        l = ['A', ['B'], ['C'], ['D', 'E', 'F']]
+        s = '''A┬B
  ├C
  └D┬E
    └F'''
-        self.assertEqual(str(plado.Plado(abcdefl)), abcdefs)
-        abcde1l = ['A', ['B'], ['C'], ['D', 'E']]
-        abcde1s = '''A┬B
+        self.assertEqual(str(plado.Plado(l)), s)
+        l = ['A', ['B'], ['C'], ['D', 'E']]
+        s = '''A┬B
  ├C
  └D─E'''
-        self.assertEqual(str(plado.Plado(abcde1l)), abcde1s)
+        self.assertEqual(str(plado.Plado(l)), s)
 
 if __name__ == '__main__':
     unittest.main()
