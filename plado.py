@@ -16,15 +16,14 @@ class Plado:
             s = cl
         else:
             s = cl[0]
-            os_mid = offset + ' '*len(cl[0]) + '│'
-            os_end = offset + ' '*len(cl[0]) + ' '
+            os = offset + ' '*len(cl[0])
             if len(cl) == 2:
-                s += '─' + self.__str__(cl[1],os_end)
+                s += '─' + self.__str__(cl[1],os+' ')
             elif len(cl) > 2:
-                s += '┬' + self.__str__(cl[1],os_mid) + '\n'
+                s += '┬' + self.__str__(cl[1],os+'│') + '\n'
                 for i in cl[2:-1]:
-                    s += offset + ' '*len(cl[0]) + '├' + self.__str__(i,os_mid) + '\n'
-                s += offset + ' '*len(cl[0]) + '└' + self.__str__(cl[-1],os_end)
+                    s += offset + ' '*len(cl[0]) + '├' + self.__str__(i,os+'│') + '\n'
+                s += offset + ' '*len(cl[0]) + '└' + self.__str__(cl[-1],os+' ')
         return s
     def _parseString(self, text):
         exp = '^(\*+)\s*(.*)$'
