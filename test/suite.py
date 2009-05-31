@@ -59,6 +59,16 @@ class TestBasicOutput(unittest.TestCase):
  ├C
  └D─E'''
         self.assertEqual(str(plado.Plado(l)), s)
+        l = ['Armada', ['Bencao', 'Cocorinha', 'D', 'E'], ['Frente', ['Ginga', 'H', 'I']], ['J', 'K', 'L', 'M']]
+        s = '''Armada┬Bencao┬Cocorinha
+      │      ├D
+      │      └E
+      ├Frente─Ginga┬H
+      │            └I
+      └J┬K
+        ├L
+        └M'''
+        self.assertEqual(str(plado.Plado(l)), s)
 
 if __name__ == '__main__':
     unittest.main()
