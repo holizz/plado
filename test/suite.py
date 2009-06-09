@@ -72,6 +72,16 @@ class TestBasicOutput(unittest.TestCase):
         l = ['Armada', ['Bencao', 'Cocorinha', 'D', 'E'], ['Frente', ['Ginga', 'H', 'I']], ['J', 'K', 'L', 'M']]
         s = ['Armada', ['Bencao', ['Cocorinha'], ['D'], ['E']], ['Frente', ['Ginga', ['H'], ['I']]], ['J', ['K'], ['L'], ['M']]]
         self.assertEqual(plado.Plado(l).clade, s)
+        l = ['Armada', ['Bencao', 'Cocorinha', 'D', 'E'], ['Frente', ['Ginga', 'H', 'I']], ['J', 'K', 'L', 'M']]
+        s = '''Armada┬Bencao┬Cocorinha
+      │      ├────────D
+      │      └────────E
+      ├Frente─Ginga┬──H
+      │            └──I
+      └J┬─────────────K
+        ├─────────────L
+        └─────────────M'''
+        self.assertEqual(plado.Plado(l).__str__(rjust=True), s)
 
 if __name__ == '__main__':
     unittest.main()

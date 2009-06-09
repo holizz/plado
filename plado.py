@@ -1,6 +1,4 @@
 
-# coding: utf8
-
 import re
 
 class Plado:
@@ -9,18 +7,23 @@ class Plado:
             self.clade = self._normaliseList(input)
         elif isinstance(input,str):
             self.clade = self._parseString(input)
-    def __str__(self, cl=None, offset=''):
+    def __str__(self, cl=None, offset='', rjust=None):
         if not cl:
             cl = self.clade
+        if rjust == True:
+            rjust = self._widestLine(cl)
+        rjust = rjust if isinstance(rjust,int) else 0
         os = offset + ' '*len(cl[0])
         s = cl[0]
-        if len(cl) == 2:
-            s += '─' + self.__str__(cl[1],os+' ')
+        if len(cl) == 1:
+            s = '─'*(rjust - len(offset) - len(s)) + s
+        elif len(cl) == 2:
+            s += '─' + self.__str__(cl[1],os+' ',rjust)
         elif len(cl) > 2:
-            s += '┬' + self.__str__(cl[1],os+'│') + '\n'
+            s += '┬' + self.__str__(cl[1],os+'│',rjust) + '\n'
             for i in cl[2:-1]:
-                s += offset + ' '*len(cl[0]) + '├' + self.__str__(i,os+'│') + '\n'
-            s += offset + ' '*len(cl[0]) + '└' + self.__str__(cl[-1],os+' ')
+                s += offset + ' '*len(cl[0]) + '├' + self.__str__(i,os+'│',rjust) + '\n'
+            s += offset + ' '*len(cl[0]) + '└' + self.__str__(cl[-1],os+' ',rjust)
         return s
     def _parseString(self, text):
         exp = '^(\*+)\s*(.*)$'
@@ -45,4 +48,5 @@ class Plado:
             lst.append(item)
         else:
             self._appendToDepth(lst[-1], depth-1, item)
-
+    def _widestLine(self, lst):
+        return max([len(l) for l in str(self).split("\n")])
