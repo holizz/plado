@@ -27,7 +27,7 @@ tree = {'':{}}
 
 for branch in branches:
     revlist = []
-    for rev in reversed(git('rev-list','--format=%d','HEAD').split('commit ')):
+    for rev in reversed(git('rev-list','--format=%d',branch).split('commit ')):
         if rev == '':
             continue
         lst = rev.split('\n')
