@@ -44,10 +44,13 @@ class Plado:
                 newlst.append([item])
         return newlst
     def _appendToDepth(self, lst, depth, item):
-        if depth == 0:
-            lst.append(item)
-        else:
-            self._appendToDepth(lst[-1], depth-1, item)
+        while True:
+            if depth == 0:
+                lst.append(item)
+                return
+            else:
+                lst = lst[-1]
+                depth -= 1
     def _widestLine(self, lst):
         return max([len(l) for l in str(self).split("\n")])
 
