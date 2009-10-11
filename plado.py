@@ -9,38 +9,42 @@ class Plado:
             self.clade = self._parseString(input.strip())
     def __str__(self, cl=None, offset='', rjust=None):
         stack = [(cl,offset,rjust)]
+        revstack = []
         s = ''
         while True:
+            while len(revstack) > 0:
+                stack.append(revstack.pop())
+            if len(stack) == 0:
+                return s
             stuck = stack.pop()
             if isinstance(stuck,tuple):
                 cl, offset, rjust = stuck
             elif isinstance(stuck,str):
                 s += stuck
                 continue
+
             if not cl:
                 cl = self.clade
             if rjust == True:
                 rjust = self._widestLine(cl)
             rjust = rjust if isinstance(rjust,int) else 0
             os = offset + ' '*len(cl[0])
-            s += cl[0]
+            revstack.append(cl[0])
             if len(cl) == 1:
                 s = '─'*(rjust - len(offset) - len(s)) + s
             elif len(cl) == 2:
-                s += '─'
-                stack.append((cl[1],os+' ',rjust))
+                revstack.append('─')
+                revstack.append((cl[1],os+' ',rjust))
             elif len(cl) > 2:
-                s += '┬'
-                stack.append('\n')
-                stack.append((cl[1],os+'│',rjust))
+                revstack.append('┬')
+                revstack.append((cl[1],os+'│',rjust))
+                revstack.append('\n')
                 for i in cl[2:-1]:
-                    s += offset + ' '*len(cl[0]) + '├'
-                    stack.append('\n')
-                    stack.append((i,os+'│',rjust))
-                s += offset + ' '*len(cl[0]) + '└'
-                stack.append((cl[-1],os+' ',rjust))
-            if len(stack) == 0:
-                return s
+                    revstack.append(offset + ' '*len(cl[0]) + '├')
+                    revstack.append((i,os+'│',rjust))
+                    revstack.append('\n')
+                revstack.append(offset + ' '*len(cl[0]) + '└')
+                revstack.append((cl[-1],os+' ',rjust))
     def _parseString(self, text):
         exp = '^(\*+)\s*(.*)$'
         starlist = [re.match(exp, l).groups() for l in text.split('\n')]
