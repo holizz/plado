@@ -50,3 +50,10 @@ class Plado:
             self._appendToDepth(lst[-1], depth-1, item)
     def _widestLine(self, lst):
         return max([len(l) for l in str(self).split("\n")])
+
+if __name__ == '__main__':
+    import sys
+    if len(sys.argv) == 2:
+        print(Plado(open(sys.argv[1]).read()).__str__(rjust=True))
+    else:
+        print("Usage: python3 plado.py input-file")
