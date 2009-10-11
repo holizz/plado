@@ -40,6 +40,8 @@ tree = {'':{}}
 for branch in branches:
     revlist = []
     for rev in reversed(git('rev-list','--format=%d','HEAD').split('commit ')):
+        if rev == '':
+            continue
         lst = rev.split('\n')
         r = lst[0][0:5]
         if len(lst) > 1 and len(lst[1]) > 0:
