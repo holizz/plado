@@ -5,8 +5,12 @@ def git(cmd, *args):
     return subprocess.Popen(['git',cmd]+list(args), stdout=subprocess.PIPE).communicate()[0].decode()
 
 def leaf(tree, pos):
-    if len(pos) == 0: return tree
-    else:             return leaf(tree[pos[0]], pos[1:])
+    while True:
+        if len(pos) == 0:
+            return tree
+        else:
+            tree = tree[pos[0]]
+            pos = pos[1:]
 
 def printtree(tree, depth=1):
     for name, child in tree.items():
