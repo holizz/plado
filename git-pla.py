@@ -4,11 +4,6 @@ import subprocess
 def git(cmd, *args):
     return subprocess.Popen(['git',cmd]+list(args), stdout=subprocess.PIPE).communicate()[0].decode()
 
-def nicename(sha):
-    r = ' '.join(git('rev-list','--no-walk','--format=%d',sha).strip().split())
-    if len(r) == 0: return None
-    else:           return r
-
 def leaf(tree, pos):
     if len(pos) == 0: return tree
     else:             return leaf(tree[pos[0]], pos[1:])
@@ -32,12 +27,17 @@ branches[branches.index('* '+head)] = head
 tree = {'':{}}
 
 for branch in branches:
-    revlist = git('rev-list',branch).split()
+    revlist = []
+    for rev in git('rev-list','--format=%d','HEAD').split('commit '):
+        lst = rev.split('\n')
+        r = lst[0][0:5]
+        if len(lst) > 1 and len(lst[1]) > 0:
+            r += ' ' + lst[1].strip()
+        revlist.append(r)
     pos = ['']
     for rev in revlist:
-        r = nicename(rev)
-        leaf(tree, pos)[r] = {}
-        pos.append(r)
+        leaf(tree, pos)[rev] = {}
+        pos.append(rev)
 
 # Pretty print
 
