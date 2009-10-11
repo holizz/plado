@@ -12,18 +12,6 @@ def leaf(tree, pos):
             tree = tree[pos[0]]
             pos = pos[1:]
 
-def printtree(tree):
-    tosee = []
-    pos = ['']
-    while True:
-        subtree = leaf(tree, pos)
-        for child in subtree.keys():
-            tosee.append(pos+[child])
-        print(('*'*len(pos)) + ' ' + pos[-1])
-        if len(tosee) == 0:
-            return
-        pos = tosee.pop(0)
-
 # Get a rev-list for each branch
 
 branches = [x.strip() for x in git('branch').strip().split('\n')]
@@ -54,4 +42,13 @@ for branch in branches:
 
 # Pretty print
 
-printtree(tree)
+tosee = []
+pos = ['']
+while True:
+    subtree = leaf(tree, pos)
+    for child in subtree.keys():
+        tosee.append(pos+[child])
+    print(('*'*len(pos)) + ' ' + pos[-1])
+    if len(tosee) == 0:
+        break
+    pos = tosee.pop(0)
