@@ -6,7 +6,7 @@ class Plado:
         if isinstance(input,list):
             self.clade = self._normaliseList(input)
         elif isinstance(input,str):
-            self.clade = self._parseString(input)
+            self.clade = self._parseString(input.strip())
     def __str__(self, cl=None, offset='', rjust=None):
         if not cl:
             cl = self.clade

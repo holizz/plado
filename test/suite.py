@@ -35,6 +35,7 @@ class TestInput(unittest.TestCase):
 
         self.assertEqual(plado.Plado(input).clade, example)
         self.assertEqual(plado.Plado(example).clade, example)
+        self.assertEqual(plado.Plado(input+'\n').clade, example)
 
 
 class TestBasicOutput(unittest.TestCase):
