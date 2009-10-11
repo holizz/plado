@@ -12,10 +12,17 @@ def leaf(tree, pos):
             tree = tree[pos[0]]
             pos = pos[1:]
 
-def printtree(tree, depth=1):
-    for name, child in tree.items():
-        print(('*'*depth) + ' ' + name)
-        printtree(child,depth+1)
+def printtree(tree):
+    tosee = []
+    pos = ['']
+    while True:
+        subtree = leaf(tree, pos)
+        for child in subtree.keys():
+            tosee.append(pos+[child])
+        print(('*'*len(pos)) + ' ' + pos[-1])
+        if len(tosee) == 0:
+            return
+        pos = tosee.pop(0)
 
 # Get a rev-list for each branch
 
