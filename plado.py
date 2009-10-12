@@ -77,6 +77,6 @@ class Plado:
 if __name__ == '__main__':
     import sys
     if len(sys.argv) == 2:
-        print(Plado(open(sys.argv[1]).read()).__str__(rjust=True))
+        print(Plado(open(sys.argv[1]).read()))
     else:
         print("Usage: python3 plado.py input-file")
