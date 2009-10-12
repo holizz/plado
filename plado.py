@@ -29,10 +29,10 @@ class Plado:
                 rjust = self._widestLine(cl)
             rjust = rjust if isinstance(rjust,int) else 0
             os = offset + ' '*len(cl[0])
-            revstack.append(cl[0])
             if len(cl) == 1:
-                s = '─'*(rjust - len(offset) - len(s)) + s
-            elif len(cl) == 2:
+                revstack.append('─'*(rjust - len(offset) - len(cl[0])))
+            revstack.append(cl[0])
+            if len(cl) == 2:
                 revstack.append('─')
                 revstack.append((cl[1],os+' ',rjust))
             elif len(cl) > 2:
